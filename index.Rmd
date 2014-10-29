@@ -1,0 +1,123 @@
+---
+title       : Technical bias
+author      : Michael Love
+job         : Irizarry group, DFCI/HSPH
+framework   : revealjs
+revealjs:
+  transition  : linear
+  theme       : solarized
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+knit        : slidify::knit2slides
+---
+
+## Technical bias in sequencing data
+
+Michael Love
+
+Research Fellow
+
+Irizarry group, DFCI/HSPH
+
+--- &vertical
+
+## Bias
+
+<img src="ruler.jpg">
+
+***
+
+<img src="pothole.jpg">
+
+thought experiment: measure potholes in Boston vs Cambridge
+
+1. everyone's rulers are off by +1 cm
+2. Boston rulers left in the sun, stretched by +1 cm
+
+***
+
+1. bias cancels out
+2. bias is correlated with comparison of interest
+
+<br><br>
+
+.fragment ...sounds simple, but still we see datasets with 100%
+confounding of condition with experimental batch
+
+---
+
+## "Sequencing bias"
+
+* this talk: bias in use of sequencing as a *quantitative* assay
+* there is also bias in sequencing, e.g. calling bases A,C,G,T
+
+--- &vertical
+
+## Example 1: DNA sequencing
+
+* we are sequencing DNA for genotyping
+* meanwhile, use number of reads to find copy number changes
+
+***
+
+## Copy number
+
+<img src="cnv_diagram.jpg">
+
+relative to a reference genome
+
+***
+
+<a href="http://www.nature.com/nbt/journal/v26/n10/full/nbt1486.html">
+<img src="shendure.png">
+</a>
+
+***
+
+## Align reads to reference genome
+
+<img src="tview.png">
+
+.fragment if we assume this is a uniform process...
+
+***
+
+## Observe changes in read "depth"
+
+<a href="http://www.ncbi.nlm.nih.gov/pmc/articles/PMC2752127">
+<img src="yoon.png">
+</a>
+
+Yoon et al 2009
+
+--- &vertical
+
+## Example 2: RNA sequencing
+
+* we want to quantify mRNA and compare across patients
+* needed for research and treatment: as a marker, diagnostics
+
+***
+
+## RNA sequencing protocol
+
+<a href="http://www.sciencedirect.com/science/article/pii/S0014482714000160">
+<img src="vandijk.jpg">
+</a>
+
+***
+
+## a few sources of bias
+
+* fragmentation and size selection
+* primer ligation
+* PCR
+
+<br>
+
+.fragment (other steps are certainly also important)
+
+***
+
