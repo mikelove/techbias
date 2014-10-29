@@ -111,11 +111,9 @@ the local number of reads: "read depth"
 
 changes in read depth relative to a reference:
 
-<a href="http://www.ncbi.nlm.nih.gov/pmc/articles/PMC2752127">
 <img src="figure/yoon.png">
-</a>
 
-Yoon et al 2009
+[Yoon et al 2009](http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3378858)
 
 ***
 
@@ -134,7 +132,53 @@ involves polymerase copying DNA many times over
 <img src="figure/polymerase.jpg">
 </a>
 
-has a preference for balance of C,G over A,T
+has a preference for balance of C,G over A,T ...
+
+--- &vertical
+
+## Observing GC bias
+
+1. partition the genome into windows
+2. count the number of reads
+3. calculate the ratio (C+G)/(A+C+G+T)
+
+***
+
+## Differential GC bias
+ 
+<img src="figure/boeva.jpg">
+
+[Boeva 2010](http://bioinformatics.oxfordjournals.org/content/27/2/268.long)
+
+***
+
+<img src="figure/benjamini1.png">
+
+[Benjamini and Speed 2012](http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3378858)
+
+***
+
+<img src="figure/benjamini2.png">
+
+[Benjamini and Speed 2012](http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3378858)
+
+***
+
+## Correction
+
+<br>
+
+* divide counts by prediction from model: $\frac{x}{\hat{\mu}_x}$
+* .fragment then look at ratio of corrected counts
+* .fragment alternatively, put $\hat{\mu}_x$ in the model
+
+***
+
+## Summary 1
+
+* GC bias was *different* between sample and reference
+* .fragment bias didn't cancel
+* .fragment modeling on features we generated *in silico* helped
 
 --- &vertical
 
