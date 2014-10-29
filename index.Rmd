@@ -168,9 +168,9 @@ has a preference for balance of C,G over A,T ...
 
 <br>
 
-* divide counts by prediction from model: $\frac{x}{\hat{\mu}_x}$
+* divide counts by prediction from model, $\hat{\mu}$
 * .fragment then look at ratio of corrected counts
-* .fragment alternatively, put $\hat{\mu}_x$ in the model
+* .fragment alternatively, put $\hat{\mu}$ in the model
 
 ***
 
@@ -180,12 +180,13 @@ has a preference for balance of C,G over A,T ...
 * .fragment bias didn't cancel
 * .fragment modeling on features we generated *in silico* helped
 
+
 --- &vertical
 
 ## Example 2: RNA sequencing
 
 * we want to quantify mRNA and compare across patients
-* needed for research and treatment: as a marker, diagnostics
+* needed for research and as a marker in diagnostics
 
 ***
 
@@ -272,4 +273,27 @@ $$ log(\mu_j) = \beta_0 + \beta_{b} 1_{j \in B} + \beta_{t} 1_{j \in T} $$
 <br>
 
 where *B* is the second batch, *T* is the treated samples.
+
+***
+
+## Summary 2
+
+* At the read level:
+  * .fragment Include bias in model for expression
+* .fragment At the gene level:
+  * .fragment Include bias in model for expression
+  * .fragment Remove unknown batch differences with factor analysis
+  * .fragment Remove any differences correlating with batch 
+
+---
+
+## Bias and batch
+
+* Accurate measurements important for research
+* Way more important: markers used in diagnostics
+
+<br>
+
+<img src="figure/mammaprint.jpg">
+
 
