@@ -209,3 +209,67 @@ has a preference for balance of C,G over A,T ...
 
 ***
 
+[Hansen 2010](http://www.ncbi.nlm.nih.gov/pmc/articles/PMC2896536/)
+
+[Evans, Hower and Pachter 2010](http://www.biomedcentral.com/1471-2105/11/430/)
+
+[Roberts 2011](http://genomebiology.com/2011/12/3/R22)
+
+[Zheng, Chung and Zhao 2011](http://www.biomedcentral.com/1471-2105/12/290)
+
+--- &vertical
+
+## Correcting bias at the gene level
+
+* Conditional quantile normalization (cqn)
+* Surrogate variable analysis (sva)
+* add batch to model formula
+
+***
+
+### conditional quantile normalization
+
+<img height=500 src="figure/cqn.jpg">
+
+[Hansen 2011](http://biostatistics.oxfordjournals.org/content/13/2/204.full)
+
+***
+
+### Bias in batches
+
+<img src="figure/bottomly_batch.png">
+
+***
+
+### Surrogate variable analysis
+
+<img height=500 src="figure/sva.png">
+
+SVA: [Leek 2007](http://www.plosgenetics.org/article/info%3Adoi%2F10.1371%2Fjournal.pgen.0030161),
+svaseq: [Leek 2014](http://nar.oxfordjournals.org/content/early/2014/10/07/nar.gku864.abstract)
+
+***
+
+## Bioconductor packages
+
+* [cqn](http://www.bioconductor.org/packages/release/bioc/html/cqn.html)
+* [EDASeq](http://www.bioconductor.org/packages/release/bioc/html/EDASeq.html)
+* [sva](http://www.bioconductor.org/packages/release/bioc/html/sva.html)
+* [RUVseq](http://www.bioconductor.org/packages/release/bioc/html/RUVseq.html)
+
+***
+
+## Add batch to the model
+
+<br>
+
+Per gene, model the mean for sample j, $\mu_j$, as:
+
+<br>
+
+$$ log(\mu_j) = \beta_0 + \beta_{b} 1_{j \in B} + \beta_{t} 1_{j \in T} $$
+
+<br>
+
+where *B* is the second batch, *T* is the treated samples.
+
