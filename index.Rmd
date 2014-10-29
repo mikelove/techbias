@@ -25,11 +25,11 @@ Irizarry group, DFCI/HSPH
 
 ## Bias
 
-<img src="ruler.jpg">
+<img src="figure/ruler.jpg">
 
 ***
 
-<img src="pothole.jpg">
+<img src="figure/pothole.jpg">
 
 thought experiment: measure potholes in Boston vs Cambridge
 
@@ -58,39 +58,83 @@ confounding of condition with experimental batch
 ## Example 1: DNA sequencing
 
 * we are sequencing DNA for genotyping
-* meanwhile, use number of reads to find copy number changes
+* meanwhile, use data to find copy number
 
 ***
 
 ## Copy number
 
-<img src="cnv_diagram.jpg">
+<img src="figure/cnv_diagram.jpg">
 
 relative to a reference genome
 
 ***
 
+### DNA sequencing
+
 <a href="http://www.nature.com/nbt/journal/v26/n10/full/nbt1486.html">
-<img src="shendure.png">
+<img height=500 src="figure/shendure.png">
 </a>
+
+* colonies of identical molecules
+* one "read" per colony/spot
+
+***
+
+<img height=600 src="figure/illumina1.png">
+
+***
+
+<img height=600 src="figure/illumina2.png">
+
+***
+
+<img height=600 src="figure/illumina3.png">
+
+***
+
+## Reads stored in "Fastq" file
+
+<img src="figure/fastq.jpg">
 
 ***
 
 ## Align reads to reference genome
 
-<img src="tview.png">
+<img src="figure/tview.png">
 
-.fragment if we assume this is a uniform process...
+the local number of reads: "read depth"
 
 ***
 
-## Observe changes in read "depth"
+## Local read depth
+
+changes in read depth relative to a reference:
 
 <a href="http://www.ncbi.nlm.nih.gov/pmc/articles/PMC2752127">
-<img src="yoon.png">
+<img src="figure/yoon.png">
 </a>
 
 Yoon et al 2009
+
+***
+
+## Assumptions
+
+* sample / reference is ok
+* different rates of coverage?
+
+***
+
+## Amplification
+
+involves polymerase copying DNA many times over
+
+<a href="http://www.rcsb.org/pdb/101/motm.do?momID=40">
+<img src="figure/polymerase.jpg">
+</a>
+
+has a preference for balance of C,G over A,T
 
 --- &vertical
 
@@ -104,7 +148,7 @@ Yoon et al 2009
 ## RNA sequencing protocol
 
 <a href="http://www.sciencedirect.com/science/article/pii/S0014482714000160">
-<img src="vandijk.jpg">
+<img src="figure/vandijk.jpg">
 </a>
 
 ***
