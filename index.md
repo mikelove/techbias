@@ -143,8 +143,8 @@ from proporitions of molecules in the "pool"
 
 ## Assumptions
 
-* sample / reference is ok
 * uniform rate of coverage
+* or at least, sample / reference is ok
 
 ***
 
@@ -389,8 +389,8 @@ where *B* is the second batch, *T* is the treated samples.
 
 ## Bias and batch
 
-* Accurate measurements important for research
-* Way more important: markers used in diagnostics
+* Accurate measurements necessary for research
+* Way more important if used as markers
 
 <br>
 
