@@ -70,14 +70,7 @@ relative to a reference genome
 
 ***
 
-### DNA sequencing
-
-<a href="http://www.nature.com/nbt/journal/v26/n10/full/nbt1486.html">
-<img height=500 src="figure/shendure.png">
-</a>
-
-* colonies of identical molecules
-* one "read" per colony/spot
+<img height=600 src="figure/illumina0.png">
 
 ***
 
@@ -117,10 +110,72 @@ changes in read depth relative to a reference:
 
 ***
 
+## Copy number
+
+<img src="figure/cnv_diagram.jpg">
+
+***
+
+## Bias
+
+deviation of coverage from that expected <br>
+from proporitions of molecules in the "pool"
+
+***
+
+```{r echo=FALSE}
+plotCov <- function(t=30,m=10,plt=TRUE) {
+  coverage1 <- c()
+  coverage2 <- c()
+  n <- 90
+  copy1 <- 41:50
+  copy2 <- 41:60
+  seq1 <- seq_len(n)
+  seq2 <- c(1:40, copy1, copy1, 51:90)
+  if (plt) plot(0,0,xlab="",ylab="",xaxt="n",yaxt="n",ylim=c(0,n+10),xlim=c(0,1),type="n")
+  for (i in 0:(t-1)) {
+    x1 <- sample(seq1,m,TRUE)
+    x2 <- sample(seq2,m,TRUE)
+    xx2 <- sample(seq_len(n + 10),m,TRUE)
+    col1 <- ifelse(seq1 %in% x1,"red",ifelse(seq1 %in% copy1,"dodgerblue","grey"))
+    col2 <- ifelse(seq_len(n+10) %in% xx2,"red",ifelse(seq_len(n+10) %in% copy2,"dodgerblue","grey"))
+    if (plt) points(rep(i/(t*2+10),n), seq_along(seq1), col=col1, pch=16)
+    if (plt) points(rep((t+i+5)/(t*2+10),n+10), seq_along(seq2), col=col2, pch=16)
+    coverage1 <- c(coverage1, x1)
+    coverage2 <- c(coverage2, x2)
+  }
+  cbind(coverage1, coverage2)
+}
+coverage <- plotCov(t=1)
+```
+
+***
+
+```{r echo=FALSE}
+coverage <- plotCov(20)
+```
+
+***
+
+```{r echo=FALSE}
+coverage <- plotCov(1000, plt=FALSE)
+par(mfrow=c(2,1),mar=c(5,5,1,1))
+h1 <- hist(coverage[,1],col="grey50",border="white",xlab="position",main="",breaks=45)
+h2 <- hist(coverage[,2],col="grey50",border="white",xlab="position",main="",breaks=45)
+```
+***
+
+
+```{r echo=FALSE}
+plot(h1$breaks[-1],h2$counts/h1$counts,xlab="position",ylab="ratio",type="b",ylim=c(0,3))
+```
+
+***
+
 ## Assumptions
 
 * sample / reference is ok
-* different rates of coverage?
+* uniform rate of coverage
 
 ***
 
@@ -132,7 +187,12 @@ involves polymerase copying DNA many times over
 <img src="figure/polymerase.jpg">
 </a>
 
-has a preference for balance of C,G over A,T ...
+***
+
+## Amplification
+
+* polymerase has a preference for certain number of C,G
+* slightly from different experiment to experiment
 
 --- &vertical
 
@@ -148,7 +208,7 @@ has a preference for balance of C,G over A,T ...
  
 <img src="figure/boeva.jpg">
 
-[Boeva 2010](http://bioinformatics.oxfordjournals.org/content/27/2/268.long)
+[Boeva et al 2010](http://bioinformatics.oxfordjournals.org/content/27/2/268.long)
 
 ***
 
@@ -198,6 +258,13 @@ has a preference for balance of C,G over A,T ...
 
 ***
 
+## Bias in RNA sequencing
+
+deviation of coverage from expected <br>
+given the proportion of molecules in the pool
+
+***
+
 ## a few sources of bias
 
 * fragmentation and size selection
@@ -210,20 +277,80 @@ has a preference for balance of C,G over A,T ...
 
 ***
 
-[Hansen 2010](http://www.ncbi.nlm.nih.gov/pmc/articles/PMC2896536/)
+## fragmentation, size selection
+
+<img height=500 src="figure/fragsize.png">
+
+***
+
+## fragmentation, size selection
+
+```{r fig.width=9, fig.height=3, echo=FALSE}
+x <- 40
+y <- 10
+par(mar=c(1,1,1,1))
+plot(0,0,xlab="",ylab="",xaxt="n",yaxt="n",xlim=c(0,1),ylim=c(0,1),type="n",bty="n")
+segments(1:5/x, 1:5/y, 6:10/x, 1:5/y, lwd=4)
+segments(21:30/x, 1:10/y, 26:35/x, 1:10/y, lwd=4)
+segments(1/x,0,10/x,0,lwd=6,col="dodgerblue")
+segments(21/x,0,35/x,0,lwd=6,col="red")
+```
+
+***
+## primer ligation
+
+<img src="figure/hansenpriming.png">
+
+* random hexamer priming biases read starts
+* weight each read using the observed freq's
+
+[Hansen et al 2010](http://www.ncbi.nlm.nih.gov/pmc/articles/PMC2896536/)
+
+***
+
+<img src="figure/evans.jpg">
+
+useful plot for identifying non-uniform coverage
 
 [Evans, Hower and Pachter 2010](http://www.biomedcentral.com/1471-2105/11/430/)
 
-[Roberts 2011](http://genomebiology.com/2011/12/3/R22)
 
-[Zheng, Chung and Zhao 2011](http://www.biomedcentral.com/1471-2105/12/290)
+***
+
+<img src="figure/nonuniform.jpg">
+
+[Li, Jiang and Wong 2010](http://www.ncbi.nlm.nih.gov/pmc/articles/PMC2898062/)
+
+linear model of the Poisson rate including sequence bias
+
+***
+
+## Multiple isoforms per gene
+
+<img src="figure/salzman.jpg">
+
+[Salzman, Jiang and Wong 2011](http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3846358/)
+
+model for estimating isoform abundances including fragmentation, size
+selection, sequence bias
+
+***
+
+## Multiple isoforms per gene
+
+<img height=400 src="figure/roberts.jpg">
+
+[Roberts et al 2011](http://genomebiology.com/2011/12/3/R22)
+
+likelihood of isoform abundances given fragment length
+distribution and sequence bias: used in *Cufflinks*
 
 --- &vertical
 
-## Correcting bias at the gene level
+## Aggregate bias at the gene level
 
-* Conditional quantile normalization (cqn)
-* Surrogate variable analysis (sva)
+* model gene counts on known covariates
+* factor analysis
 * add batch to model formula
 
 ***
@@ -232,7 +359,7 @@ has a preference for balance of C,G over A,T ...
 
 <img height=500 src="figure/cqn.jpg">
 
-[Hansen 2011](http://biostatistics.oxfordjournals.org/content/13/2/204.full)
+[Hansen, Irizarry and Wu 2011](http://biostatistics.oxfordjournals.org/content/13/2/204.full)
 
 ***
 
@@ -246,17 +373,8 @@ has a preference for balance of C,G over A,T ...
 
 <img height=500 src="figure/sva.png">
 
-SVA: [Leek 2007](http://www.plosgenetics.org/article/info%3Adoi%2F10.1371%2Fjournal.pgen.0030161),
+SVA: [Leek et al 2007](http://www.plosgenetics.org/article/info%3Adoi%2F10.1371%2Fjournal.pgen.0030161),
 svaseq: [Leek 2014](http://nar.oxfordjournals.org/content/early/2014/10/07/nar.gku864.abstract)
-
-***
-
-## Bioconductor packages
-
-* [cqn](http://www.bioconductor.org/packages/release/bioc/html/cqn.html)
-* [EDASeq](http://www.bioconductor.org/packages/release/bioc/html/EDASeq.html)
-* [sva](http://www.bioconductor.org/packages/release/bioc/html/sva.html)
-* [RUVseq](http://www.bioconductor.org/packages/release/bioc/html/RUVseq.html)
 
 ***
 
@@ -279,9 +397,9 @@ where *B* is the second batch, *T* is the treated samples.
 ## Summary 2
 
 * At the read level:
-  * .fragment Include bias in model for expression
+  * .fragment Include bias in model for isoform abundances
 * .fragment At the gene level:
-  * .fragment Include bias in model for expression
+  * .fragment Model on known covariates
   * .fragment Remove unknown batch differences with factor analysis
   * .fragment Remove any differences correlating with batch 
 
