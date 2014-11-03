@@ -270,7 +270,7 @@ given the proportion of molecules in the pool
 ## a few sources of bias
 
 * fragmentation and size selection
-* primer ligation
+* random hexamer primers (for RT)
 * PCR
 
 <br>
@@ -299,7 +299,7 @@ segments(21/x,0,35/x,0,lwd=6,col="red")
 ```
 
 ***
-## primer ligation
+## sequence specific bias
 
 <img src="figure/hansenpriming.png">
 
